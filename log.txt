@@ -1,0 +1,4 @@
+[2026-04-03 04:15:38] SYSTEM: Primary boot sequence complete. Awaiting Login.
+[2026-04-03 04:15:52] AUTH: Failed intrusion attempt on Admin login.
+[2026-04-03 04:16:08] AUTH: Failed intrusion attempt on Admin login.
+[2026-04-03 04:16:10] AUTH: Kiosk Reader instantiated.

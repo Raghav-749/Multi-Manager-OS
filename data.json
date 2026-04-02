@@ -1,0 +1,10 @@
+[
+    {
+        "id": "HOS-CAD6D2",
+        "module": "hostel",
+        "student": "Raghav Tailor",
+        "room": "1",
+        "check_in": "2005-08-14",
+        "status": "Active Resident"
+    }
+]

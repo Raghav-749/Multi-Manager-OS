@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card form-card">
+    <h3>Form Injector: {{ module.name }}</h3>
+    <br>
+    <form method="POST" action="{{ url_for('add_record', module_id=module_id) }}">
+        
+        <!-- Generate input layers via python logic dynamically seamlessly -->
+        {% for field in module.fields %}
+        <div class="form-group">
+            <label>{{ field.label }}:</label>
+            <input type="{{ field.type }}" name="{{ field.id }}" required>
+        </div>
+        {% endfor %}
+        
+        {% if module.has_status %}
+        <div class="form-group">
+            <label>Administrative Condition Override:</label>
+            <select name="status">
+                {% for stat in module.status_options %}
+                <option value="{{ stat }}">{{ stat }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% endif %}
+        
+        <button type="submit" class="btn">Write Entity Data</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="text-align: center; margin-bottom: 2rem;">
+    <h2>Initiating System Protocol</h2>
+    <p>Please select an operational module space below to handle respective memory banks.</p>
+</div>
+
+<div class="dashboard-grid">
+    {% for key, mod in modules.items() %}
+    <a href="{{ url_for('dashboard', module_id=key) }}" style="text-decoration:none;">
+        <div class="card stat-card">
+            <h1>{{ mod.icon }}</h1>
+            <h3>{{ mod.name }}</h3>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

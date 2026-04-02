@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card search-card">
+    <form method="GET" action="{{ url_for('view_records', module_id=module_id) }}" class="search-form">
+        <input type="text" name="q" placeholder="Fuzzy Universal Lookup Search across all values..." value="{{ query or '' }}">
+        <button type="submit" class="btn">Hunt Directory</button>
+        <a href="{{ url_for('view_records', module_id=module_id) }}" class="btn btn-secondary">Release Filter</a>
+    </form>
+</div>
+
+<div class="card mt-2">
+    <h3>Native Sandbox: {{ module.name }} Repository</h3>
+    <div style="overflow-x: auto;"> <!-- Protect tabular overflow logic via inline handling safely -->
+    <table>
+        <thead>
+            <tr>
+                <th>SYS-ID</th>
+                {% for field in module.fields %}
+                    <th>{{ field.label }}</th>
+                {% endfor %}
+                {% if module.has_expiry %}<th>Expiry Trigger Rule</th>{% endif %}
+                {% if module.has_status %}<th>Recorded Status</th>{% endif %}
+                <th>Master Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in records %}
+            <tr>
+                <td>{{ r.id }}</td>
+                {% for field in module.fields %}
+                    <td>{{ r.get(field.id, '') }}</td>
+                {% endfor %}
+                {% if module.has_expiry %}<td>{{ r.get('expiry_date', 'N/A') }}</td>{% endif %}
+                {% if module.has_status %}
+                    <td><span class="status-badge {{ r.get('status', '').lower().replace(' ', '-') }}">{{ r.get('status', '') }}</span></td>
+                {% endif %}
+                <td>
+                    <a href="{{ url_for('update_record', module_id=module_id, record_id=r.id) }}" class="btn btn-small">Override</a>
+                    <a href="{{ url_for('delete_record', module_id=module_id, record_id=r.id) }}" class="btn btn-small btn-danger" onclick="return confirm('Wipe element permanently from target database schema?');">Purge</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="10" style="text-align: center;">Dataset currently holds zero indices payload entries.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+{% endblock %}

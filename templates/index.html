@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ module.icon }} {{ module.name }} / Dashboard Overview</h2>
+
+<div class="dashboard-grid mt-2">
+    <div class="card stat-card"><h3>Memory Targets</h3><p class="stat-num">{{ stats.total }}</p></div>
+    <div class="card stat-card"><h3>Active Flow</h3><p class="stat-num">{{ stats.active }}</p></div>
+    
+    {% if module.has_expiry %}
+    <div class="card stat-card"><h3>Expired Events</h3><p class="stat-num">{{ stats.expired }}</p></div>
+    {% endif %}
+    
+    {% if module.has_status %}
+    <div class="card stat-card"><h3>At-Risk Flag</h3><p class="stat-num">{{ stats.unpaid }}</p></div>
+    {% endif %}
+</div>
+
+<div class="card mt-2">
+    <h3>🔔 Sub-System Alerts & Timestamps</h3>
+    {% if stats.alerts %}
+        <ul class="alert-list">
+        {% for msg in stats.alerts %}
+            <li class="alert-item warning">{{ msg }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No analytical warnings fired in memory for target subset.</p>
+    {% endif %}
+</div>
+{% endblock %}

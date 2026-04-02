@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card form-card">
+    <h3>Object Modifier ({{ record.id }})</h3>
+    <br>
+    <form method="POST" action="{{ url_for('update_record', module_id=module_id, record_id=record.id) }}">
+        
+        {% for field in module.fields %}
+        <div class="form-group">
+            <label>{{ field.label }}:</label>
+            <input type="{{ field.type }}" name="{{ field.id }}" value="{{ record.get(field.id, '') }}" required>
+        </div>
+        {% endfor %}
+        
+        {% if module.has_status %}
+        <div class="form-group">
+            <label>State Verification Modifier:</label>
+            <select name="status">
+                {% for stat in module.status_options %}
+                <option value="{{ stat }}" {% if record.get('status') == stat %}selected{% endif %}>{{ stat }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% endif %}
+        
+        <button type="submit" class="btn">Push Patch Payload</button>
+        <a href="{{ url_for('view_records', module_id=module_id) }}" class="btn btn-secondary">Discard Edits</a>
+    </form>
+</div>
+{% endblock %}
