@@ -29,3 +29,9 @@ A configurable management system that can be used for Gym, Library, Hostel, or o
 * Flask
 * HTML/CSS
 * JSON
+
+## Screenshots
+
+![Home](home.png)
+![Dashboard](dashboard.png)
+![Add Form](add-form.png)
